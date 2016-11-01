@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
+var DataTable = require('react-data-components').DataTable;
+
 
 class Home extends React.Component {
     constructor(props) {
@@ -52,6 +54,13 @@ class Home extends React.Component {
             });
     }
     render() {
+        var columns = [
+            { title: '#', prop: 'number' },
+            { title: 'Name', prop: 'name' },
+            { title: 'Size', prop: 'size' },
+            { title: 'Date', prop: 'lastModified' }
+        ];
+
         if (this.state.content) {
             var botsNodes = this.state.content.map((bot, index) => {
                 return (
@@ -163,19 +172,13 @@ class Home extends React.Component {
               </div>
               <div className="col-lg-9 welcome-grid-left">
                 <div className="bs-docs-example animated wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="500ms">
-                  <table className="table table-hover" id="searchResults">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Size</th>
-                        <th>Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {packListNodes}
-                    </tbody>
-                  </table>
+                  <DataTable
+      keys="number"
+      columns={columns}
+      initialData={this.state.packList}
+      initialPageLength={20}
+      initialSortBy={{ prop: 'number', order: 'descending' }}
+    />
                   <div className="clearfix"> </div>
                 </div>
               </div>
